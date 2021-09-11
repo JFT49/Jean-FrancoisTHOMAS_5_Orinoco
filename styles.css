@@ -2,6 +2,9 @@
   margin: 0 auto;
   padding: 0;
 }
+body {
+  background-color: #f5f5f5;
+}
 
 .logo {
   color: orange;
@@ -14,16 +17,23 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 10px;
 }
 
 .carte {
-  border: 1px solid;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.18);
+  background-color: white;
   border-radius: 15px;
   overflow: hidden;
-  margin: 15px;
   width: 300px;
   min-width: 300px;
-  height: 330px;
+}
+
+.lien {
+  display: block;
+  margin: 15px;
+  text-decoration: none;
+  color: black;
 }
 
 .image {
@@ -36,7 +46,8 @@
 }
 
 .texte {
-  border-top: 1px solid;
+  border-top: 1px solid rgb(216, 216, 216);
+  padding: 10px 0;
 }
 
 .nom, .prix {
@@ -49,10 +60,11 @@
   height: 20px;
   border-radius: 10px;
   margin: 4px;
-  border: 1px solid;
+  border: 1px solid rgb(195, 195, 195);
 }
 
 .couleurs {
+  height: 30px;
   margin-top: 6px;
   display: flex;
   flex-wrap: wrap;

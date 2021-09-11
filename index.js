@@ -1,6 +1,9 @@
-const url = "http://localhost:3000/api/teddies/";
-//const url = "http://localhost:3000/api/cameras/";
-//const url = "http://localhost:3000/api/furniture/";
+let product = "teddies";
+//let product = "cameras";
+//let product = "furniture";
+
+let url = "http://localhost:3000/api/";
+url += product;
 
   fetch(url)
 
@@ -11,49 +14,49 @@ const url = "http://localhost:3000/api/teddies/";
   })
 
   .then(function(data) {
-    console.log(data);
+    console.log(data)
 
+    // création d'une carte par article
     for (var i=0; i<data.length; i++){
 
       let conteneur = document.getElementById("inject");
 
-      let carte = document.createElement("div");
-      carte.setAttribute("class", "carte");
-      conteneur.appendChild(carte);
-      
-          let image = document.createElement("div");
-          image.setAttribute("class", "image");
-          carte.appendChild(image);
+      let lien = createNode("a");
+      appendNodeClass(conteneur, lien, "lien");
 
-              let img = document.createElement("img");
-              image.appendChild(img);
-              img.setAttribute("class", "img");
-              img.src = data[i]['imageUrl'];
+      lien.setAttribute("href", "produit.html"+"?"+"product="+product+"&"+"_id="+data[i]['_id']);
 
-          let texte = document.createElement("div");
-          carte.appendChild(texte);
-          texte.setAttribute("class", "texte");
+        let carte = createNode("div");
+        appendNodeClass(lien, carte, "carte");
 
-              let couleurs = document.createElement("div");
-              texte.appendChild(couleurs);
-              couleurs.setAttribute("class", "couleurs");
+          let image = createNode("div");
+          appendNodeClass(carte, image, "image");
 
-              for (var j=0; j<data[i]["colors"].length; j++){
-                let puce = document.createElement("div");
-                couleurs.appendChild(puce);
-                puce.setAttribute("class", "puce");
-                puce.style.backgroundColor = data[i]['colors'][j];
-              };
+            let img = createNode("img");
+            appendNodeClass(image, img, "img");
+            img.src = data[i]['imageUrl'];
 
-              let nom = document.createElement("h1");
-              texte.appendChild(nom);
-              nom.setAttribute("class", "nom");
-              nom.innerHTML = data[i]['name'];
+          let texte = createNode("div");
+          appendNodeClass(carte, texte, "texte");
 
-              let prix = document.createElement("p");
-              texte.appendChild(prix);
-              prix.setAttribute("class", "prix");
-              prix.innerHTML = (data[i]['price']/100).toFixed(2) + " Euro";
+            if (data[i]['colors']) {
+              let couleurs = createNode("div");
+              appendNodeClass(texte, couleurs, "couleurs");
+
+                for (var j=0; j<data[i]["colors"].length; j++){
+                  let puce = createNode("div");
+                  appendNodeClass(couleurs, puce, "puce");
+                  puce.style.backgroundColor = colors(data[i]['colors'][j]);
+                };
+            };
+
+            let nom = createNode("h1");
+            appendNodeClass(texte, nom, "nom");
+            nom.innerHTML = data[i]['name'];
+
+            let prix = createNode("p");
+            appendNodeClass(texte, prix, "prix");
+            prix.innerHTML = (data[i]['price']/100).toFixed(2) + " Euro";
     };
   })
 
