@@ -1,33 +1,33 @@
 /* GENERAL */
 
-.header {
-  height: 50px;
-}
-
-.hero {
+.logo {
   background-color: #F3E9F1;
 }
-.hero img {
+.logo img {
   width: 70%;
 }
 
 /* PAGE INDEX.HTML */
 
-.puce {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  margin: 4px;
-  border: 1px solid;
+.card:hover{
+  transform: scale(1.02);
 }
 
 .couleurs {
-  height: 30px;
-  margin-top: 6px;
   display: flex;
   justify-content: center;
 }
 
-.card:hover{
-  transform: scale(1.02);
+.puce {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin: 0 4px;
+  border: 1px solid;
+}
+
+/* PAGE PRODUIT */
+
+.info {
+  word-wrap: break-word;
 }

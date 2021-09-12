@@ -1,9 +1,9 @@
+let url = "http://localhost:3000/api/";
 let product = "teddies";
 //let product = "cameras";
 //let product = "furniture";
-
-let url = "http://localhost:3000/api/";
 url += product;
+document.getElementById("produit").innerHTML = product.toUpperCase();
 
   fetch(url)
 
@@ -32,7 +32,7 @@ url += product;
         lien.setAttribute("href", "produit.html"+"?"+"product="+product+"&"+"_id="+data[i]['_id']);
   
         let img = createNode("img");
-        appendNodeClass(card, img, "card-img-top border-bottom ");
+        appendNodeClass(card, img, "card-img-top border-bottom");
         img.src = data[i]['imageUrl'];
         img.setAttribute("alt","Photo du produit "+product+" nommé "+data[i]['name']);
 
@@ -40,7 +40,7 @@ url += product;
         appendNodeClass(card, texte, "card-body");
 
           if (data[i]['colors']) {
-            let couleurs = createNode("div");
+            let couleurs = createNode("p");
             appendNodeClass(texte, couleurs, "couleurs");
 
               for (var j=0; j<data[i]["colors"].length; j++){
@@ -49,7 +49,7 @@ url += product;
                 puce.style.backgroundColor = colors(data[i]['colors'][j]);
               };
           };
-
+          
           let nom = createNode("h1");
           appendNodeClass(texte, nom, "card-title h3 text-center");
           nom.innerHTML = data[i]['name'];
