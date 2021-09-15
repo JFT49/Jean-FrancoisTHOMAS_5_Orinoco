@@ -15,3 +15,64 @@ function colors(color) {
     if (color == 'Dark brown'){ i = "#654321"};
     return i;
 };
+
+// Retourne le choix de customisation en fonction du type de produit
+function typeChoix(produit) {
+    let i;
+    if (produit == 'teddies'){ i = "colors"};
+    if (produit == 'cameras'){ i = "lenses"};
+    if (produit == 'furniture'){ i = "varnish"};
+    return i;
+};
+
+//Stoquage d'un article dans le panier (localstorage)
+function ajoutPanier(produit, id) {
+    let nbChoix = document.getElementsByName("flexRadioDefault").length;
+    for (var i=0; i < nbChoix; i++){
+        if (document.getElementById("flexRadioDefault"+i).checked) {
+          custom = document.getElementById("flexRadioDefault"+i).value;
+        };
+    };
+
+    let nb = 0;
+
+    let objetJSON = {
+        product: produit, 
+        id: id,
+        custom: custom,
+        nombre: nb
+    };
+    let objetLinea = JSON.stringify(objetJSON);
+    let nbArticle = localStorage.length;
+    localStorage.setItem(nbArticle, objetLinea);
+
+    for (var i=0; i<localStorage.length;i++){
+         objetLinea = localStorage.getItem(i);
+         objetJSON = JSON.parse(objetLinea);
+        if (id == objetJSON.id && custom == objetJSON.custom) {
+            objetJSON.nombre += 1;
+            objetLinea = JSON.stringify(objetJSON);
+            localStorage.setItem(i, objetLinea);
+            break;
+        };
+    };
+    for (var i=0; i<localStorage.length;i++){
+        objetLinea = localStorage.getItem(i);
+        objetJSON = JSON.parse(objetLinea);
+       if (objetJSON.nombre == 0) {
+           objetJSON.nombre += 1;
+           objetLinea = JSON.stringify(objetJSON);
+           localStorage.removeItem(i, objetLinea);
+       };
+   };
+};
+
+//////////////////////////////////////
+function regardePanier() {
+    let j = localStorage.length;
+    for (var i=0; i<j; i++){
+        let objetLinea = localStorage.getItem(i);
+        let objetJSON = JSON.parse(objetLinea);
+        console.log(objetJSON);
+    };
+};
