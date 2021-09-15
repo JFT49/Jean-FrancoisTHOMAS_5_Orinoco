@@ -25,6 +25,16 @@ function typeChoix(produit) {
     return i;
 };
 
+//recuperer un objet JSON dans le localStorage
+function getStorage (rang) {
+    return JSON.parse(localStorage.getItem(rang));
+};
+
+//Mettre le premiere lettre du chaine en majuscule
+function firstMaj (chaine) {
+    return chaine[0].toUpperCase() + chaine.substr(1);
+};
+
 //Stoquage d'un article dans le panier (localstorage)
 function ajoutPanier(produit, id) {
     let nbChoix = document.getElementsByName("flexRadioDefault").length;
@@ -47,8 +57,7 @@ function ajoutPanier(produit, id) {
     localStorage.setItem(nbArticle, objetLinea);
 
     for (var i=0; i<localStorage.length;i++){
-         objetLinea = localStorage.getItem(i);
-         objetJSON = JSON.parse(objetLinea);
+         objetJSON = getStorage (i);
         if (id == objetJSON.id && custom == objetJSON.custom) {
             objetJSON.nombre += 1;
             objetLinea = JSON.stringify(objetJSON);
@@ -56,18 +65,16 @@ function ajoutPanier(produit, id) {
             break;
         };
     };
+    
     for (var i=0; i<localStorage.length;i++){
-        objetLinea = localStorage.getItem(i);
-        objetJSON = JSON.parse(objetLinea);
+        objetJSON = getStorage (i);
        if (objetJSON.nombre == 0) {
-           objetJSON.nombre += 1;
-           objetLinea = JSON.stringify(objetJSON);
-           localStorage.removeItem(i, objetLinea);
+           localStorage.removeItem(i);
        };
    };
 };
 
-//////////////////////////////////////
+////////////////////////////////////
 function regardePanier() {
     let j = localStorage.length;
     for (var i=0; i<j; i++){
