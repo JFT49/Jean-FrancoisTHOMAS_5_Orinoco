@@ -11,7 +11,7 @@ else {
     appendNodeClass(conteneur, liste, "list-group list-group-flush pt-2");
 
     for (var i=0; i<localStorage.length;i++){
-        let objetJSON = getStorage (i);
+        let objetJSON = getStorage(i);
 
         let produit = createNode("li");
         appendNodeClass(liste, produit, "list-group-item m-2");
@@ -28,11 +28,18 @@ else {
 
                 let plus = createNode("div");
                 appendNodeClass(groupe, plus, "btn btn-outline-secondary");
+                plus.setAttribute("onClick",`add(${i});`);
                 plus.innerHTML = "+";
 
                 let moins = createNode("div");
                 appendNodeClass(groupe, moins, "btn btn-outline-secondary");
+                moins.setAttribute("onClick",`sub(${i});`);
                 moins.innerHTML = "-";
+
+                let suppr = createNode("div");
+                appendNodeClass(groupe, suppr, "btn btn-outline-secondary");
+                suppr.setAttribute("onClick",`del(${i});`);
+                suppr.innerHTML = "x";
     };
 
     let bouton = createNode("button");

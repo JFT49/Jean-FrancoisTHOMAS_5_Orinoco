@@ -67,19 +67,43 @@ function ajoutPanier(produit, id) {
     };
     
     for (var i=0; i<localStorage.length;i++){
-        objetJSON = getStorage (i);
+        objetJSON = getStorage(i);
        if (objetJSON.nombre == 0) {
            localStorage.removeItem(i);
        };
    };
 };
 
-////////////////////////////////////
-function regardePanier() {
-    let j = localStorage.length;
-    for (var i=0; i<j; i++){
-        let objetLinea = localStorage.getItem(i);
-        let objetJSON = JSON.parse(objetLinea);
-        console.log(objetJSON);
+//Ajoute +1 article identique
+function add(objet) {
+    objetJSON = getStorage(objet);
+    objetJSON.nombre += 1;
+    localStorage.setItem(objet, JSON.stringify(objetJSON));
+    window.location.reload();
+};
+
+//Enleve -1 article identique
+function sub(objet) {
+    objetJSON = getStorage(objet);
+    if (objetJSON.nombre > 1) {
+        objetJSON.nombre -= 1;
+        localStorage.setItem(objet, JSON.stringify(objetJSON));
     };
+    window.location.reload();
+};
+
+//Supprime un type article du panier
+function del(objet){
+    let tab = [];
+    for (var i=0; i<localStorage.length;i++){
+        article = localStorage.getItem(i);
+        tab.push(article);
+    };
+    tab.splice(objet, 1);
+    localStorage.clear();
+    for (var i=0; i<tab.length;i++){
+        article = tab[i];
+        localStorage.setItem(i, article);
+    };
+    window.location.reload();
 };
