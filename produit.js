@@ -16,12 +16,11 @@ fetch(url)
     return res.json();
   }
 })
-
 .then(function(data) {
   console.log(data)
 
   let conteneur = document.getElementById("inject");
-  conteneur.setAttribute("class", "row bg-light p-4");
+  conteneur.setAttribute("class", "row bg-light p-4 border");
 
     let img = createNode("img");
     appendNodeClass(conteneur, img, "img");
@@ -69,7 +68,6 @@ fetch(url)
 
       bouton.setAttribute("onClick","ajoutPanier(product, _id)");
 })
-
 .catch(function(error) {
   console.log(error);
 });

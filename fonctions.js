@@ -76,10 +76,10 @@ function ajoutPanier(produit, id) {
 
 //Ajoute +1 article identique
 function add(objet) {
-    objetJSON = getStorage(objet);
-    objetJSON.nombre += 1;
-    localStorage.setItem(objet, JSON.stringify(objetJSON));
-    window.location.reload();
+    objJSON = getStorage(objet);
+    objJSON.nombre += 1;
+    localStorage.setItem(objet, JSON.stringify(objJSON));
+    document.getElementById("nb"+objet).innerHTML = "Nombre: " +objJSON.nombre;
 };
 
 //Enleve -1 article identique
@@ -88,22 +88,15 @@ function sub(objet) {
     if (objetJSON.nombre > 1) {
         objetJSON.nombre -= 1;
         localStorage.setItem(objet, JSON.stringify(objetJSON));
-    };
-    window.location.reload();
+        document.getElementById("nb"+objet).innerHTML = "Nombre: " +objetJSON.nombre;
+    } else {};
 };
 
 //Supprime un type article du panier
 function del(objet){
-    let tab = [];
-    for (var i=0; i<localStorage.length;i++){
-        article = localStorage.getItem(i);
-        tab.push(article);
+    localStorage.removeItem(objet)
+    document.getElementById("li"+objet).remove();
+    if (localStorage.length == 0) {
+        window.location.reload();
     };
-    tab.splice(objet, 1);
-    localStorage.clear();
-    for (var i=0; i<tab.length;i++){
-        article = tab[i];
-        localStorage.setItem(i, article);
-    };
-    window.location.reload();
 };
