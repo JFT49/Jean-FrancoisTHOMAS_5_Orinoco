@@ -36,7 +36,7 @@ fetch(url)
       contenu.innerHTML = "Informations sur le produit <br><br>";
       contenu.innerHTML += "ID : "+ _id +"<br><br>"; 
       contenu.innerHTML += "Nom : "+ data['name'] +"<br><br>";
-      contenu.innerHTML += "Prix : "+ (data['price']/100).toFixed(2) +" Euro"+"<br><br>";
+      contenu.innerHTML += "Prix : "+ prixEuro(data['price']) +"<br><br>";
       contenu.innerHTML += "Description : "+ data['description'] +"<br><br>";
       contenu.innerHTML += "Choix "+ choix +" :";
 
@@ -61,12 +61,12 @@ fetch(url)
           label.innerHTML = data[choix][i];
         };
       document.getElementById("flexRadioDefault0").checked = true;
-      
+
       let bouton = createNode("button");
       appendNodeClass(info, bouton, "btn btn-lg btn-outline-secondary mt-4");
       bouton.innerHTML = "Ajouter au panier";
 
-      bouton.setAttribute("onClick","ajoutPanier(product, _id)");
+      bouton.setAttribute("onClick",`ajoutPanier(product, _id, ${data['price']})`);
 })
 .catch(function(error) {
   console.log(error);

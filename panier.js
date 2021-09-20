@@ -17,7 +17,6 @@ else {
         url += objetJSON.product;
         url += "/"+objetJSON.id;
 
-        console.log(i);
         let rang = i;
     
         fetch(url)
@@ -29,7 +28,7 @@ else {
         .then(function(data) {
     
         let produit = createNode("li");
-        appendNodeClass(liste, produit, " m-2 row bg-light border");//list-group-item
+        appendNodeClass(liste, produit, " m-2 row bg-light border");
         produit.setAttribute("id","li"+rang);
     
             let img = createNode("img");
@@ -42,7 +41,8 @@ else {
             appendNodeClass(produit, texte1, "col info");
             let custom = typeChoix(objetJSON.product);
             texte1.innerHTML = firstMaj(objetJSON.product) +" " +custom +" : &nbsp&nbsp" +objetJSON.custom.bold() +"<br>";
-            texte1.innerHTML += "ID : &nbsp&nbsp" +objetJSON.id;
+            texte1.innerHTML += "ID : &nbsp&nbsp" +objetJSON.id +"<br>";
+            texte1.innerHTML += "Price : &nbsp&nbsp" +prixEuro(data['price']);
 
             let groupe1 = createNode("div");
             appendNodeClass(produit, groupe1, "col");
@@ -50,7 +50,8 @@ else {
                 let texte2 = createNode("p");
                 appendNodeClass(groupe1, texte2, "");
                 texte2.setAttribute("id","nb"+rang);
-                texte2.innerHTML = "Nombre: " +objetJSON.nombre;
+                texte2.innerHTML = "Nombre: &nbsp&nbsp" +objetJSON.nombre +"<br>";
+                texte2.innerHTML += "Total price : &nbsp&nbsp" +prixEuro(data['price']*objetJSON.nombre);
         
                 let groupe2 = createNode("div");
                 appendNodeClass(groupe1, groupe2, "btn-group col-1 pb-2");
@@ -75,8 +76,13 @@ else {
         });
     };
 
+    let total = createNode("div");
+    appendNodeClass(conteneur, total, "row bg-light border p-3 ms-2 me-3 my-2");
+    total.setAttribute("id","total");
+    totalCom();
+
     let bouton = createNode("button");
-    appendNodeClass(conteneur, bouton, "btn btn-lg btn-outline-secondary m-2 my-5");
+    appendNodeClass(conteneur, bouton, "btn btn-lg btn-outline-secondary mx-2 my-3");
     bouton.innerHTML = "Vider votre panier";
     bouton.setAttribute("onClick","localStorage.clear(); window.location.reload();");
 };

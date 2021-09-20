@@ -25,6 +25,12 @@ function typeChoix(produit) {
     return i;
 };
 
+//mise en forme du prix
+
+function prixEuro(price) {
+    return  (price/100).toFixed(2)+" Euro";
+}
+
 //recuperer un objet JSON dans le localStorage
 function getStorage (rang) {
     return JSON.parse(localStorage.getItem(rang));
@@ -36,7 +42,7 @@ function firstMaj (chaine) {
 };
 
 //Stoquage d'un article dans le panier (localstorage)
-function ajoutPanier(produit, id) {
+function ajoutPanier(produit, id, prix) {
     let nbChoix = document.getElementsByName("flexRadioDefault").length;
     for (var i=0; i < nbChoix; i++){
         if (document.getElementById("flexRadioDefault"+i).checked) {
@@ -50,7 +56,8 @@ function ajoutPanier(produit, id) {
         product: produit, 
         id: id,
         custom: custom,
-        nombre: nb
+        nombre: nb,
+        price: prix
     };
     let objetLinea = JSON.stringify(objetJSON);
     let nbArticle = localStorage.length;
@@ -76,10 +83,12 @@ function ajoutPanier(produit, id) {
 
 //Ajoute +1 article identique
 function add(objet) {
-    objJSON = getStorage(objet);
-    objJSON.nombre += 1;
-    localStorage.setItem(objet, JSON.stringify(objJSON));
-    document.getElementById("nb"+objet).innerHTML = "Nombre: " +objJSON.nombre;
+    objetJSON = getStorage(objet);
+    objetJSON.nombre += 1;
+    document.getElementById("nb"+objet).innerHTML = "Nombre: &nbsp&nbsp" +objetJSON.nombre +"<br>";
+    document.getElementById("nb"+objet).innerHTML += "Total price : &nbsp&nbsp" +prixEuro(objetJSON.price*objetJSON.nombre);
+    localStorage.setItem(objet, JSON.stringify(objetJSON));
+    totalCom();
 };
 
 //Enleve -1 article identique
@@ -87,16 +96,33 @@ function sub(objet) {
     objetJSON = getStorage(objet);
     if (objetJSON.nombre > 1) {
         objetJSON.nombre -= 1;
+        document.getElementById("nb"+objet).innerHTML = "Nombre: &nbsp&nbsp" +objetJSON.nombre +"<br>";
+        document.getElementById("nb"+objet).innerHTML += "Total price : &nbsp&nbsp" +prixEuro(objetJSON.price*objetJSON.nombre);
         localStorage.setItem(objet, JSON.stringify(objetJSON));
-        document.getElementById("nb"+objet).innerHTML = "Nombre: " +objetJSON.nombre;
-    } else {};
+        totalCom();
+    };
 };
 
 //Supprime un type article du panier
 function del(objet){
     localStorage.removeItem(objet)
     document.getElementById("li"+objet).remove();
-    if (localStorage.length == 0) {
+    if (localStorage.length > 0) {
+        totalCom();
+    } else {
         window.location.reload();
     };
 };
+
+//Calcul et affiche le total de la commande
+function totalCom(){
+    let prixT = 0;
+    let articles =0;
+    for (var i=0; i<localStorage.length;i++){
+        let objetJSON = getStorage(i);
+        prixT += objetJSON.nombre*objetJSON.price;
+        articles += objetJSON.nombre;
+    }
+    document.getElementById("total").innerHTML = "Nombre d'articles de votre commande: &nbsp&nbsp" +articles +" articles<br>";
+    document.getElementById("total").innerHTML += "Prix total de votre commande: &nbsp&nbsp" +prixEuro(prixT);
+}

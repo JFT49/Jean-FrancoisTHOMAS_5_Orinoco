@@ -56,7 +56,7 @@ document.getElementById("produit").innerHTML = product.toUpperCase();
 
           let prix = createNode("p");
           appendNodeClass(texte, prix, "card-text text-center");
-          prix.innerHTML = (data[i]['price']/100).toFixed(2) + " Euro";
+          prix.innerHTML = prixEuro(data[i]['price']);
     };
   })
 
