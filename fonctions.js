@@ -43,6 +43,7 @@ function firstMaj (chaine) {
 
 //Stoquage d'un article dans le panier (localstorage)
 function ajoutPanier(produit, id, prix) {
+    //recuperation du choix du custom
     let nbChoix = document.getElementsByName("flexRadioDefault").length;
     for (var i=0; i < nbChoix; i++){
         if (document.getElementById("flexRadioDefault"+i).checked) {
@@ -50,8 +51,8 @@ function ajoutPanier(produit, id, prix) {
         };
     };
 
+    //creation du produit (en objetJSON) injecter dans local storage avec n=0
     let nb = 0;
-
     let objetJSON = {
         product: produit, 
         id: id,
@@ -63,6 +64,7 @@ function ajoutPanier(produit, id, prix) {
     let nbArticle = localStorage.length;
     localStorage.setItem(nbArticle, objetLinea);
 
+    //contatenation des produits dans localstorage
     for (var i=0; i<localStorage.length;i++){
          objetJSON = getStorage (i);
         if (id == objetJSON.id && custom == objetJSON.custom) {
@@ -73,6 +75,7 @@ function ajoutPanier(produit, id, prix) {
         };
     };
     
+    //mise à jour de l'affichage
     for (var i=0; i<localStorage.length;i++){
         objetJSON = getStorage(i);
        if (objetJSON.nombre == 0) {
@@ -126,3 +129,23 @@ function totalCom(){
     document.getElementById("total").innerHTML = "Nombre d'articles de votre commande: &nbsp&nbsp" +articles +" articles<br>";
     document.getElementById("total").innerHTML += "Prix total de votre commande: &nbsp&nbsp" +prixEuro(prixT);
 }
+
+//Envois les données au server
+function sendData() {
+    let contact = {
+        firstName: document.getElementById("firstName").value, 
+        lastName: document.getElementById("lastName").value,
+        address: document.getElementById("address").value,
+        city: document.getElementById("city").value,
+        email: document.getElementById("email").value
+    };
+
+    let products = [];
+    for (var i=0; i<localStorage.length;i++){
+        let j = JSON.stringify(getStorage(i));
+        products.push(j);
+    };
+    
+    console.log(contact);
+    console.log(products);
+};
