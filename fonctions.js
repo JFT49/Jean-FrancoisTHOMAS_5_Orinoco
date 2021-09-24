@@ -51,7 +51,7 @@ function ajoutPanier(produit, id, prix) {
         };
     };
 
-    //creation du produit (en objetJSON) injecter dans local storage avec n=0
+    //creation du produit (en objetJSON) injecter dans local storage avec nb=0
     let nb = 0;
     let objetJSON = {
         product: produit, 
@@ -84,7 +84,8 @@ function ajoutPanier(produit, id, prix) {
    };
 };
 
-//Ajoute +1 article identique
+//Ajoute +1 article identique  
+
 function add(objet) {
     objetJSON = getStorage(objet);
     objetJSON.nombre += 1;
@@ -92,7 +93,7 @@ function add(objet) {
     document.getElementById("nb"+objet).innerHTML += "Total price : &nbsp&nbsp" +prixEuro(objetJSON.price*objetJSON.nombre);
     localStorage.setItem(objet, JSON.stringify(objetJSON));
     totalCom();
-};
+}; 
 
 //Enleve -1 article identique
 function sub(objet) {
@@ -108,13 +109,16 @@ function sub(objet) {
 
 //Supprime un type article du panier
 function del(objet){
-    localStorage.removeItem(objet)
-    document.getElementById("li"+objet).remove();
-    if (localStorage.length > 0) {
-        totalCom();
-    } else {
-        window.location.reload();
+    let stockage = [];
+    for (var i=0; i<localStorage.length; i++){
+        stockage.push(localStorage.getItem(i));
     };
+    stockage.splice(objet, 1);
+    localStorage.clear();
+    for (var i=0; i<stockage.length;i++){
+    localStorage.setItem(i, stockage[i]);
+    };
+    window.location.reload();
 };
 
 //Calcul et affiche le total de la commande
@@ -128,7 +132,7 @@ function totalCom(){
     }
     document.getElementById("total").innerHTML = "Nombre d'articles de votre commande: &nbsp&nbsp" +articles +" articles<br>";
     document.getElementById("total").innerHTML += "Prix total de votre commande: &nbsp&nbsp" +prixEuro(prixT);
-}
+};
 
 //Envois les données au server
 function sendData() {
@@ -142,10 +146,33 @@ function sendData() {
 
     let products = [];
     for (var i=0; i<localStorage.length;i++){
-        let j = JSON.stringify(getStorage(i));
+        let j = getStorage(i);
         products.push(j);
     };
-    
-    console.log(contact);
-    console.log(products);
+
+    let body = {
+        contact: JSON.stringify(contact),
+        products: JSON.stringify(products)
+    };
+
+    let url2 = "http://localhost:3000/api/teddies/order";
+
+    var request = new Request(url2, {
+        method: 'POST',
+        body: body,
+        headers: new Headers()
+    });
+
+    console.log(body);
+
+    fetch(request)
+        .then(function(res) {
+            return res.json();
+        })
+        .then(function(retour) {
+            console.log(retour);
+        })   
+        .catch(function(error) {
+            console.log(error);
+        });  
 };

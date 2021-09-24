@@ -33,28 +33,37 @@
 
 <div id="inject"></div>
 
-<form class="needs-validation container bg-light border" novalidate>
+<div class="container bg-light border">
     <h1 class="h3 mt-4 mx-4">Formulaire de commande</h1>
-    <div class="form-group row p-4">
-        <label for="firstName">Entrez votre prénom :</label>
-        <input id="firstName" type="string" class="form-control" placeholder="John" required>
-        <small class="invalid-feedback">valeur incorrect</small>
-
-        <label for="lastName" class="mt-4">Entrez votre nom :</label>
-        <input id="lastName" type="string" class="form-control" placeholder="DOE">
-    
-        <label for="address" class="mt-4">Entrez votre adresse :</label>
-        <input id="address" type="address" class="form-control" placeholder="3 rue des Lilas">
-        
-        <label for="city" class="mt-4">Entrez votre ville :</label>
-        <input id="city" type="string" class="form-control" placeholder="PARIS" describedby="aideCity">
-    
-        <label for="email" class="mt-4">Entrez votre email :</label>
-        <input id="email" type="string" class="form-control" placeholder="John.doe@winner.uk">
-    
-        <input type="submit" value="Valider votre commande" class="mt-4" onclick="sendData()">
-    </div>
-</form>
+    <form class="was-validated row g-3">  
+        <div class="form-group">
+            <label for="firstName" class="form-label">Entrez votre prénom :</label>
+            <input id="firstName" class="form-control" type="string"  placeholder="John" type="text" pattern='[a-zA-Zçèé-]{2,20}' required>
+            <small class="invalid-feedback">Pas de caractères spéciaux. 2 caratères minimum. 20 caractères maximum.</small>
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="mt-4">Entrez votre nom :</label>
+            <input id="lastName" type="string" class="form-control" placeholder="DOE" type="text" pattern='[a-zA-Zçèé-]{2,20}' required>
+            <small class="invalid-feedback">Pas de caractères spéciaux. 2 caratères minimum. 20 caractères maximum.</small>
+        </div>   
+        <div class="form-group">
+            <label for="address" class="form-label mt-4">Entrez votre adresse :</label>
+            <input id="address" type="address" class="form-control" placeholder="3 rue des Lilas" type="text" pattern='[0-9a-zA-Zçèé,/ /-]{5,60}' required>
+            <small class="invalid-feedback">Pas de caractères spéciaux. 5 caratères minimum. 60 caractères maximum.</small>
+        </div>
+        <div class="form-group">   
+            <label for="city" class="form-label mt-4">Entrez votre ville :</label>
+            <input id="city" type="string" class="form-control" placeholder="PARIS" type="text" pattern='[a-zA-Zçèé-]{2,20}' required>
+            <small class="invalid-feedback">Pas de caractères spéciaux. 2 caratères minimum. 20 caractères maximum.</small>
+        </div>
+        <div class="form-group">
+            <label for="email" class="form-label mt-4">Entrez votre email :</label>
+            <input id="email" type="string" class="form-control" placeholder="John.doe@winner.uk" type="email" pattern='[^ @]+@[^ @]+.[a-z]' required>
+            <small class="invalid-feedback">Forme attendue : xxx@xxx.xx</small>
+        </div>
+        <button class="btn btn-lg btn-outline-secondary my-5" onclick="sendData()">Valider votre commande</button>
+    </form>
+</div>
 
     <footer>
     </footer>
