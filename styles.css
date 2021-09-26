@@ -16,6 +16,10 @@ a:hover {
   color: #db872c;
 }
 
+i {
+  font-size: 25px;
+}
+
 /* PAGE INDEX.HTML */
 
 .card:hover{

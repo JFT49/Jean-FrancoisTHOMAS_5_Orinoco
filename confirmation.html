@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <script src="https://kit.fontawesome.com/5a6ef9e285.js" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     
     <link rel="stylesheet" type="text/css" href="styles.css"/>
     <script src="fonctions.js" type="text/javascript" defer></script>
-    <script src="index.js" type="text/javascript" defer></script>
+    <script src="confirmation.js" type="text/javascript" defer></script>
     <title>Orinoco</title>
 </head>
 
 <body>
-    <div class="container">
+    <header class="container">
         <div class="row header bg-secondary border">
-            <p id="produit" class="h1 col"></p>
-            <a href="/panier.html" class="h4 col-4 col-md-2">PANIER</a>
+            <p id="commande" class="col h1">COMMANDE</p>
+            <a href="/index.html" class="h4 col-4 col-md-2">HOME</a>
         </div>
-    </div>
+    </header>
 
     <div class="container">
-        <div class="row logo">
+        <div class="row logo border">
             <div class="col">
                 <img src="LogoOrinoco.png" alt="image du logo du site Orinoco en forme de caddy"/>
             </div>
         </div>
-
-        <div id="inject"></div>
     </div>
+
+
+    <div id="inject"></div>
 
     <footer class="container">
         <div class="row bg-secondary border pb-4 pt-5 ps-3">
@@ -42,7 +43,7 @@
             </div>
         </div>
     </footer>
-
+ 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>

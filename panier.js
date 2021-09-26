@@ -35,7 +35,8 @@ else {
             appendNodeClass(produit, img, "col-2");
             img.setAttribute("id","img"+rang);
             img.src = data['imageUrl'];
-            img.setAttribute("style", "object-fit: contain; width: 150px"); 
+            img.setAttribute("onClick", `window.location.href="/produit.html?product=${objetJSON.product}&_id=${objetJSON.id}"`);
+            img.setAttribute("style", "object-fit: contain; width: 150px; cursor: pointer"); 
     
             let texte1 = createNode("p");
             appendNodeClass(produit, texte1, "col info");
@@ -82,7 +83,7 @@ else {
     totalCom();
 
     let bouton = createNode("button");
-    appendNodeClass(conteneur, bouton, "btn btn-lg btn-outline-secondary mx-2 my-3");
+    appendNodeClass(conteneur, bouton, "btn btn-lg btn-outline-secondary mx-2 mt-2 mb-5");
     bouton.innerHTML = "Vider votre panier";
     bouton.setAttribute("onClick","localStorage.clear(); window.location.reload();");
 };

@@ -121,7 +121,7 @@ function del(objet){
     window.location.reload();
 };
 
-//Calcul et affiche le total de la commande
+//Calcul et affiche le total de la commande et l'enregistre dans sessionStorage
 function totalCom(){
     let prixT = 0;
     let articles =0;
@@ -132,47 +132,57 @@ function totalCom(){
     }
     document.getElementById("total").innerHTML = "Nombre d'articles de votre commande: &nbsp&nbsp" +articles +" articles<br>";
     document.getElementById("total").innerHTML += "Prix total de votre commande: &nbsp&nbsp" +prixEuro(prixT);
+    sessionStorage.setItem('prixT', prixT);
+    sessionStorage.setItem('articles', articles);
 };
 
-//Envois les données au server
+//Envois les données au server et recupere le N° de commande puis affichage page de confirmationde commande
 function sendData() {
-    let contact = {
-        firstName: document.getElementById("firstName").value, 
-        lastName: document.getElementById("lastName").value,
-        address: document.getElementById("address").value,
-        city: document.getElementById("city").value,
-        email: document.getElementById("email").value
-    };
+    if(localStorage.length){
+        let contact = {
+            firstName: document.getElementById("firstName").value, 
+            lastName: document.getElementById("lastName").value,
+            address: document.getElementById("address").value,
+            city: document.getElementById("city").value,
+            email: document.getElementById("email").value
+        };
+        let products = [];
+        for (var i=0; i<localStorage.length;i++){
+            let j = getStorage(i);
+            products.push(j.id);
+        };
+        let url = "http://localhost:3000/api/";
+            url += JSON.parse(localStorage.getItem(0)).product;
+            url += "/order";
 
-    let products = [];
-    for (var i=0; i<localStorage.length;i++){
-        let j = getStorage(i);
-        products.push(j);
-    };
+        let request = new Request(url, {
+            method: "POST",
+            body: JSON.stringify({contact, products}),
+            headers: new Headers({'Content-Type': 'application/json'})
+        });
 
-    let body = {
-        contact: JSON.stringify(contact),
-        products: JSON.stringify(products)
-    };
-
-    let url2 = "http://localhost:3000/api/teddies/order";
-
-    var request = new Request(url2, {
-        method: 'POST',
-        body: body,
-        headers: new Headers()
-    });
-
-    console.log(body);
-
-    fetch(request)
+        fetch(request)
         .then(function(res) {
             return res.json();
         })
-        .then(function(retour) {
-            console.log(retour);
+        .then(function(data) {
+            if( document.getElementById("firstName").validity.valid == true &&
+                document.getElementById("lastName").validity.valid == true &&
+                document.getElementById("address").validity.valid == true &&
+                document.getElementById("city").validity.valid == true &&
+                document.getElementById("email").validity.valid == true
+            ){
+                sessionStorage.setItem('orderId', data.orderId);
+                window.location.href="/confirmation.html";
+            }; 
         })   
         .catch(function(error) {
             console.log(error);
-        });  
-};
+        });    
+    };      
+ };
+
+
+
+
+
