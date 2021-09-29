@@ -69,8 +69,16 @@ else {
 
                     let suppr = createNode("div");
                     appendNodeClass(groupe2, suppr, "btn btn-outline-secondary");
-                    suppr.setAttribute("onClick",`del(${rang});`);
                     suppr.innerHTML = "x";
+
+                    suppr.onclick = function() {
+                        createModale(true);
+                        document.getElementById('modal').showModal();
+                        document.getElementById('textModal').innerHTML = "Voulez vous vraiment supprimer cet article de votre panier ?";
+                        document.getElementById("confirmBtn").onclick = function() {
+                            del(rang);
+                        };
+                    };
         })   
         .catch(function(error) {
             console.log(error);
@@ -85,5 +93,32 @@ else {
     let bouton = createNode("button");
     appendNodeClass(conteneur, bouton, "btn btn-lg btn-outline-secondary mx-2 mt-2 mb-5");
     bouton.innerHTML = "Vider votre panier";
-    bouton.setAttribute("onClick","localStorage.clear(); window.location.reload();");
+
+    bouton.onclick = function() {
+        createModale(true);
+        document.getElementById('modal').showModal();
+        document.getElementById('textModal').innerHTML = "Voulez vous vraiment vider votre panier ?";
+        document.getElementById("confirmBtn").onclick = function() {
+            localStorage.clear();
+            window.location.reload();
+        };
+    };
+};
+
+document.getElementById("commande").onclick = function() {
+    if( document.getElementById("firstName").validity.valid == true &&
+    document.getElementById("lastName").validity.valid == true &&
+    document.getElementById("address").validity.valid == true &&
+    document.getElementById("city").validity.valid == true &&
+    document.getElementById("email").validity.valid == true ){
+        createModale(true);
+        document.getElementById('modal').showModal();
+        let prix = sessionStorage.getItem('prixT');
+        prix = prixEuro(prix);
+        document.getElementById('textModal').innerHTML = "Voulez vous vraiment valider votre commande ?<br> Prix total = " +prix;
+        document.getElementById("confirmBtn").onclick = function() {
+            sendData();
+        };
+        return false;
+    };
 };

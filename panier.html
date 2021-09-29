@@ -35,7 +35,7 @@
 
     <div class="container bg-light border">
         <h1 class="h3 my-4 mx-2">Formulaire de commande</h1>
-        <form class="was-validated .needs-validation row g-3">  
+        <form class="was-validated row g-3">  
             <div class="form-group">
                 <label for="firstName" class="form-label">Entrez votre prénom :</label>
                 <input id="firstName" class="form-control" type="string"  placeholder="John" type="text" pattern='[a-zA-Zçèé-]{2,20}' required>
@@ -61,8 +61,8 @@
                 <input id="email" type="string" class="form-control" placeholder="John.doe@winner.uk" type="email" pattern='[0-9a-zA-Z.]+@[0-9a-zA-Z.]+\.[a-z]{1,5}' required>
                 <small class="invalid-feedback">Pas de caractères spéciaux. Forme attendue : xxx@xxx.xx</small>
             </div>
-        </form>
-        <button class="btn btn-lg btn-outline-secondary my-5" onclick="sendData()">Valider votre commande</button>
+            <button id="commande" class="btn btn-outline-secondary my-5 mx-2 col">Valider votre commande</button>
+        </form>  
     </div>
 
     <footer class="container">

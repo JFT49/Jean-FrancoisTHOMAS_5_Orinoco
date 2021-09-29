@@ -180,9 +180,44 @@ function sendData() {
             console.log(error);
         });    
     };      
- };
+};
 
+//creer une fenêtre modale
+function createModale(boutons) {
+    let body = document.getElementsByTagName("body");
 
+        let dialog = createNode("dialog");
+        body[0].appendChild(dialog);
+        dialog.setAttribute("id","modal");
+         
+            let form = createNode("form");
+            dialog.appendChild(form);
+            form.setAttribute("method","dialog");
 
+                let p = createNode("p");
+                form.appendChild(p);
+                p.setAttribute("id","textModal");
 
+                if(boutons == true){
+                let menu = createNode("menu");
+                form.appendChild(menu);
 
+                    let button1 = createNode("button");
+                    menu.appendChild(button1);
+                    button1.setAttribute("value","cancel");
+                    button1.innerHTML = "Annuler";
+                    
+                    let button2 = createNode("button");
+                    menu.appendChild(button2);
+                    button2.setAttribute("id","confirmBtn");
+                    button2.innerHTML = "Confirmer";
+                    button2.setAttribute("style","margin-left: 10px;");
+                }else{
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                            window.location.reload();
+                        };  
+                    };
+                };
+};

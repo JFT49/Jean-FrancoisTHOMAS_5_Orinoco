@@ -62,12 +62,18 @@ fetch(url)
         };
       document.getElementById("flexRadioDefault0").checked = true;
 
-      let bouton = createNode("button");
+      var bouton = createNode("button");
       appendNodeClass(info, bouton, "btn btn-lg btn-outline-secondary mt-4");
       bouton.innerHTML = "Ajouter au panier";
-
-      bouton.setAttribute("onClick",`ajoutPanier(product, _id, ${data['price']})`);
-})
+     
+      bouton.onclick = function() {
+        createModale(false);
+        document.getElementById('textModal').innerHTML = "Cet article à bien été ajouter à votre panier !";
+        document.getElementById('modal').showModal();
+        ajoutPanier(product, _id, data['price']);
+      };
+ 
+    })
 .catch(function(error) {
   console.log(error);
 });
