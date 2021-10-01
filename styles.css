@@ -44,12 +44,3 @@ i {
 .info {
   word-wrap: break-word;
 }
-
-/*PAGE PANIER */
-
-input:invalid {
-  border: red solid 1px;
-}
-input:valid {
-  border: green solid 1px;
-}
