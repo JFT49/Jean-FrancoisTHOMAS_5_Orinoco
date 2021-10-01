@@ -109,7 +109,21 @@ if (localStorage.length == 0) {
 };
 
 //Action du Bouton "valider votre commande" du formulaire 
-document.getElementById("commande").onclick = function() {  
+document.getElementById("commande").onclick = function() {
+
+    //Gestion de la validité du formulaire
+    var forms = document.getElementsByClassName('needs-validation');
+    Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+
+    //Gestion de l'affichage des fenêtres modales et de l'envois des données
     if( document.getElementById("firstName").validity.valid == true &&
         document.getElementById("lastName").validity.valid == true &&
         document.getElementById("address").validity.valid == true &&
