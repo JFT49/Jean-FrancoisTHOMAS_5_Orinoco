@@ -50,7 +50,7 @@ function ajoutPanier(produit, id, prix) {
         };
     };
 
-    //creation du produit (en objetJSON) injecter dans local storage avec nb=0
+    //creation du produit (en objetJSON) injecter en bas de pile dans local storage avec nb=0
     let nb = 0;
     let objetJSON = {
         product: produit, 
@@ -70,11 +70,11 @@ function ajoutPanier(produit, id, prix) {
             objetJSON.nombre += 1;
             objetLinea = JSON.stringify(objetJSON);
             localStorage.setItem(i, objetLinea);
-            break;
+            break;  // ajoute +1 uniquement au premier objet correspondant trouver
         };
     };
     
-    //mise à jour de l'affichage
+    //suppression de l'objet en bas de pile si il est tjrs à nb=0
     for (var i=0; i<localStorage.length;i++){
         objetJSON = getStorage(i);
        if (objetJSON.nombre == 0) {
@@ -189,7 +189,6 @@ function createModale(boutons) {
                 form.appendChild(p);
                 p.setAttribute("id","textModal");
 
-                
                 let menu = createNode("menu");
                 form.appendChild(menu);
 
