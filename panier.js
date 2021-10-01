@@ -5,8 +5,8 @@ if (localStorage.length == 0) {
     let message = createNode("p");
     appendNodeClass(conteneur, message, "row h5 p-5");
     message.innerHTML = "Votre panier est vide";
-}
-else {
+}else{
+    //Creation d'une liste composer de chaque articles du panier
     let liste = createNode("ul");
     appendNodeClass(conteneur, liste, "list-group list-group-flush pt-2 container");
 
@@ -72,7 +72,7 @@ else {
                     suppr.innerHTML = "x";
 
                     suppr.onclick = function() {
-                        createModale(true);
+                        createModale(2);
                         document.getElementById('modal').showModal();
                         document.getElementById('textModal').innerHTML = "Voulez vous vraiment supprimer cet article de votre panier ?";
                         document.getElementById("confirmBtn").onclick = function() {
@@ -85,17 +85,20 @@ else {
         });
     };
 
+    //creation de la ligne total de la commande 
     let total = createNode("div");
     appendNodeClass(conteneur, total, "row bg-light border p-3 ms-2 me-3 my-2");
     total.setAttribute("id","total");
     totalCom();
 
+    //Creation du bouton pour vider le panier
     let bouton = createNode("button");
     appendNodeClass(conteneur, bouton, "btn btn-lg btn-outline-secondary mx-2 mt-2 mb-5");
     bouton.innerHTML = "Vider votre panier";
 
+    //Action du Boton "Vider votre panier"
     bouton.onclick = function() {
-        createModale(true);
+        createModale(2);
         document.getElementById('modal').showModal();
         document.getElementById('textModal').innerHTML = "Voulez vous vraiment vider votre panier ?";
         document.getElementById("confirmBtn").onclick = function() {
@@ -105,20 +108,27 @@ else {
     };
 };
 
-document.getElementById("commande").onclick = function() {
+//Action du Bouton "valider votre commande" du formulaire 
+document.getElementById("commande").onclick = function() {  
     if( document.getElementById("firstName").validity.valid == true &&
-    document.getElementById("lastName").validity.valid == true &&
-    document.getElementById("address").validity.valid == true &&
-    document.getElementById("city").validity.valid == true &&
-    document.getElementById("email").validity.valid == true ){
-        createModale(true);
-        document.getElementById('modal').showModal();
-        let prix = sessionStorage.getItem('prixT');
-        prix = prixEuro(prix);
-        document.getElementById('textModal').innerHTML = "Voulez vous vraiment valider votre commande ?<br> Prix total = " +prix;
-        document.getElementById("confirmBtn").onclick = function() {
-            sendData();
-        };
-        return false;
+        document.getElementById("lastName").validity.valid == true &&
+        document.getElementById("address").validity.valid == true &&
+        document.getElementById("city").validity.valid == true &&
+        document.getElementById("email").validity.valid == true ){
+            if (!localStorage.length){
+                createModale(1);
+                document.getElementById('modal').showModal();
+                document.getElementById('textModal').innerHTML = "Votre panier est vide !";
+            }else{
+                createModale(2);
+                document.getElementById('modal').showModal();
+                let prix = sessionStorage.getItem('prixT');
+                prix = prixEuro(prix);
+                document.getElementById('textModal').innerHTML = "Voulez vous vraiment valider votre commande ?<br> Prix total = " +prix;
+                document.getElementById("confirmBtn").onclick = function() {
+                    sendData();
+                };
+            };
+            return false; //empeche le reload du form
     };
 };

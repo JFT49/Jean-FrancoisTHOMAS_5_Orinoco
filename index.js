@@ -14,8 +14,7 @@ document.getElementById("produit").innerHTML = product.toUpperCase();
   })
 
   .then(function(data) {
-    console.log(data)
-
+    
     let conteneur = document.getElementById("inject");
     conteneur.setAttribute("class", "row bg-light px-3 border");
 

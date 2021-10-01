@@ -3,7 +3,7 @@ function createNode(balise) {
     return document.createElement(balise);
 };
   
-// créer un noeud enfant avec une classe 
+// créer un noeud enfant avec l'attribut class (facilite l'utilisation de bootstrap)
 function appendNodeClass (parent, node, className) {
     return parent.appendChild(node).setAttribute("class", className);
 };
@@ -26,7 +26,6 @@ function typeChoix(produit) {
 };
 
 //mise en forme du prix
-
 function prixEuro(price) {
     return  (price/100).toFixed(2)+" Euro";
 }
@@ -85,7 +84,6 @@ function ajoutPanier(produit, id, prix) {
 };
 
 //Ajoute +1 article identique  
-
 function add(objet) {
     objetJSON = getStorage(objet);
     objetJSON.nombre += 1;
@@ -166,15 +164,8 @@ function sendData() {
             return res.json();
         })
         .then(function(data) {
-            if( document.getElementById("firstName").validity.valid == true &&
-                document.getElementById("lastName").validity.valid == true &&
-                document.getElementById("address").validity.valid == true &&
-                document.getElementById("city").validity.valid == true &&
-                document.getElementById("email").validity.valid == true
-            ){
-                sessionStorage.setItem('orderId', data.orderId);
-                window.location.href="/confirmation.html";
-            }; 
+            sessionStorage.setItem('orderId', data.orderId);
+            window.location.href="/confirmation.html";
         })   
         .catch(function(error) {
             console.log(error);
@@ -182,7 +173,7 @@ function sendData() {
     };      
 };
 
-//creer une fenêtre modale
+//creer une fenêtre modale 1 bouton ou 2 boutons
 function createModale(boutons) {
     let body = document.getElementsByTagName("body");
 
@@ -198,26 +189,37 @@ function createModale(boutons) {
                 form.appendChild(p);
                 p.setAttribute("id","textModal");
 
-                if(boutons == true){
+                
                 let menu = createNode("menu");
                 form.appendChild(menu);
 
-                    let button1 = createNode("button");
-                    menu.appendChild(button1);
-                    button1.setAttribute("value","cancel");
-                    button1.innerHTML = "Annuler";
-                    
-                    let button2 = createNode("button");
-                    menu.appendChild(button2);
-                    button2.setAttribute("id","confirmBtn");
-                    button2.innerHTML = "Confirmer";
-                    button2.setAttribute("style","margin-left: 10px;");
-                }else{
-                    window.onclick = function(event) {
-                        if (event.target == modal) {
-                            modal.style.display = "none";
-                            window.location.reload();
-                        };  
-                    };
-                };
+                let button1;
+                switch(boutons){
+                    case 1:
+                        button1 = createNode("button");
+                        menu.appendChild(button1);
+                        button1.setAttribute("value","cancel");
+                        button1.innerHTML = "Ok";
+                        button1.setAttribute("style","width: 70px;");
+                        break;
+                    case 2:
+                        button1 = createNode("button");
+                        menu.appendChild(button1);
+                        button1.setAttribute("value","cancel");
+                        button1.innerHTML = "Annuler";
+                            
+                        let button2 = createNode("button");
+                        menu.appendChild(button2);
+                        button2.setAttribute("id","confirmBtn");
+                        button2.innerHTML = "Confirmer";
+                        button2.setAttribute("style","margin-left: 10px;");
+                        break;
+                    default:
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                                window.location.reload();
+                            };
+                        };
+                };              
 };

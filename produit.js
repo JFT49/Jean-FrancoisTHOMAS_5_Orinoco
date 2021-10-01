@@ -1,3 +1,4 @@
+//Recuperation des info dans l'url
 let params = new URLSearchParams(document.location.search.substring(1));
 let product = params.get("product");
 let _id = params.get("_id");
@@ -9,6 +10,7 @@ url += "/"+_id;
 let choix = typeChoix(product);
 document.getElementById("produit").innerHTML = product.toUpperCase();
 
+//Creation de la fiche produit avec les données de l'API
 fetch(url)
 
 .then(function(res) {
@@ -17,7 +19,6 @@ fetch(url)
   }
 })
 .then(function(data) {
-  console.log(data)
 
   let conteneur = document.getElementById("inject");
   conteneur.setAttribute("class", "row bg-light p-4 border");
@@ -40,6 +41,7 @@ fetch(url)
       contenu.innerHTML += "Description : "+ data['description'] +"<br><br>";
       contenu.innerHTML += "Choix "+ choix +" :";
 
+      //Creation des boutons radio pour le choix des options du produit
       for (var i=0; i<data[choix].length; i++){
         let form = createNode("div");
         appendNodeClass(info, form, "form-check");
@@ -62,12 +64,14 @@ fetch(url)
         };
       document.getElementById("flexRadioDefault0").checked = true;
 
+      //Creation du bouton "Ajouter au panier"
       var bouton = createNode("button");
       appendNodeClass(info, bouton, "btn btn-lg btn-outline-secondary mt-4");
       bouton.innerHTML = "Ajouter au panier";
      
+      //Action du bouton "Ajouter au panier"
       bouton.onclick = function() {
-        createModale(false);
+        createModale(1);
         document.getElementById('textModal').innerHTML = "Cet article à bien été ajouter à votre panier !";
         document.getElementById('modal').showModal();
         ajoutPanier(product, _id, data['price']);
