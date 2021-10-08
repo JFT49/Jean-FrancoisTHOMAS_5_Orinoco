@@ -43,8 +43,9 @@ function firstMaj (chaine) {
 //Stoquage d'un article dans le panier (localstorage)
 function ajoutPanier(produit, id, prix) {
     //recuperation du choix du custom
+    let custom;
     let nbChoix = document.getElementsByName("flexRadioDefault").length;
-    for (var i=0; i < nbChoix; i++){
+    for (let i=0; i < nbChoix; i++){
         if (document.getElementById("flexRadioDefault"+i).checked) {
           custom = document.getElementById("flexRadioDefault"+i).value;
         };
@@ -64,7 +65,7 @@ function ajoutPanier(produit, id, prix) {
     localStorage.setItem(nbArticle, objetLinea);
 
     //contatenation des produits dans localstorage
-    for (var i=0; i<localStorage.length;i++){
+    for (let i=0; i<localStorage.length;i++){
          objetJSON = getStorage (i);
         if (id == objetJSON.id && custom == objetJSON.custom) {
             objetJSON.nombre += 1;
@@ -75,7 +76,7 @@ function ajoutPanier(produit, id, prix) {
     };
     
     //suppression de l'objet en bas de pile si il est tjrs à nb=0
-    for (var i=0; i<localStorage.length;i++){
+    for (let i=0; i<localStorage.length;i++){
         objetJSON = getStorage(i);
        if (objetJSON.nombre == 0) {
            localStorage.removeItem(i);
@@ -85,7 +86,7 @@ function ajoutPanier(produit, id, prix) {
 
 //Ajoute +1 article identique  
 function add(objet) {
-    objetJSON = getStorage(objet);
+    let objetJSON = getStorage(objet);
     objetJSON.nombre += 1;
     document.getElementById("nb"+objet).innerHTML = "Nombre: &nbsp&nbsp" +objetJSON.nombre +"<br>";
     document.getElementById("nb"+objet).innerHTML += "Total price : &nbsp&nbsp" +prixEuro(objetJSON.price*objetJSON.nombre);
@@ -95,7 +96,7 @@ function add(objet) {
 
 //Enleve -1 article identique
 function sub(objet) {
-    objetJSON = getStorage(objet);
+    let objetJSON = getStorage(objet);
     if (objetJSON.nombre > 1) {
         objetJSON.nombre -= 1;
         document.getElementById("nb"+objet).innerHTML = "Nombre: &nbsp&nbsp" +objetJSON.nombre +"<br>";
@@ -108,12 +109,12 @@ function sub(objet) {
 //Supprime un type article du panier
 function del(objet){
     let stockage = [];
-    for (var i=0; i<localStorage.length; i++){
+    for (let i=0; i<localStorage.length; i++){
         stockage.push(localStorage.getItem(i));
     };
     stockage.splice(objet, 1);
     localStorage.clear();
-    for (var i=0; i<stockage.length;i++){
+    for (let i=0; i<stockage.length;i++){
     localStorage.setItem(i, stockage[i]);
     };
     window.location.reload();

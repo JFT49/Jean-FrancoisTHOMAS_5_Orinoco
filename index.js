@@ -28,34 +28,34 @@ document.getElementById("produit").innerHTML = product.toUpperCase();
 
         let lien = createNode("a");
         appendNodeClass(card, lien, "stretched-link");
-        lien.setAttribute("href", "produit.html"+"?"+"product="+product+"&"+"_id="+data[i]['_id']);
+        lien.setAttribute("href", "produit.html"+"?"+"product="+product+"&"+"_id="+data[i]._id);
   
         let img = createNode("img");
         appendNodeClass(card, img, "card-img-top border-bottom");
-        img.src = data[i]['imageUrl'];
-        img.setAttribute("alt","Photo du produit "+product+" nommé "+data[i]['name']);
+        img.src = data[i].imageUrl;
+        img.setAttribute("alt","Photo du produit "+product+" nommé "+data[i].name);
 
         let texte = createNode("div");
         appendNodeClass(card, texte, "card-body");
 
-          if (data[i]['colors']) {
-            let couleurs = createNode("p");
-            appendNodeClass(texte, couleurs, "couleurs");
+        if (data[i].colors) {
+          let couleurs = createNode("p");
+          appendNodeClass(texte, couleurs, "couleurs");
 
-              for (var j=0; j<data[i]["colors"].length; j++){
-                let puce = createNode("div");
-                appendNodeClass(couleurs, puce, "puce");
-                puce.style.backgroundColor = colors(data[i]['colors'][j]);
-              };
+          for (var j=0; j<data[i].colors.length; j++){
+            let puce = createNode("div");
+            appendNodeClass(couleurs, puce, "puce");
+            puce.style.backgroundColor = colors(data[i].colors[j]);
           };
+        };
           
           let nom = createNode("h1");
           appendNodeClass(texte, nom, "card-title h3 text-center");
-          nom.innerHTML = data[i]['name'];
+          nom.innerHTML = data[i].name;
 
           let prix = createNode("p");
           appendNodeClass(texte, prix, "card-text text-center");
-          prix.innerHTML = prixEuro(data[i]['price']);
+          prix.innerHTML = prixEuro(data[i].price);
     };
   })
 

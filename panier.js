@@ -34,16 +34,16 @@ if (localStorage.length == 0) {
             let img = createNode("img");
             appendNodeClass(produit, img, "col-2");
             img.setAttribute("id","img"+rang);
-            img.src = data['imageUrl'];
-            img.setAttribute("onClick", `window.location.href="/produit.html?product=${objetJSON.product}&_id=${objetJSON.id}"`);
-            img.setAttribute("style", "object-fit: contain; width: 150px; cursor: pointer"); 
+            img.src = data.imageUrl;
+            img.setAttribute("onClick", 'window.location.href="/produit.html?product='+objetJSON.product+'&_id='+objetJSON.id+'"');
+            img.setAttribute("style", "object-fit: contain; width: 150px; cursor: pointer");
     
             let texte1 = createNode("p");
             appendNodeClass(produit, texte1, "col info");
             let custom = typeChoix(objetJSON.product);
             texte1.innerHTML = firstMaj(objetJSON.product) +" " +custom +" : &nbsp&nbsp" +objetJSON.custom.bold() +"<br>";
             texte1.innerHTML += "ID : &nbsp&nbsp" +objetJSON.id +"<br>";
-            texte1.innerHTML += "Price : &nbsp&nbsp" +prixEuro(data['price']);
+            texte1.innerHTML += "Price : &nbsp&nbsp" +prixEuro(data.price);
 
             let groupe1 = createNode("div");
             appendNodeClass(produit, groupe1, "col");
@@ -52,19 +52,19 @@ if (localStorage.length == 0) {
                 appendNodeClass(groupe1, texte2, "");
                 texte2.setAttribute("id","nb"+rang);
                 texte2.innerHTML = "Nombre: &nbsp&nbsp" +objetJSON.nombre +"<br>";
-                texte2.innerHTML += "Total price : &nbsp&nbsp" +prixEuro(data['price']*objetJSON.nombre);
+                texte2.innerHTML += "Total price : &nbsp&nbsp" +prixEuro(data.price*objetJSON.nombre);
         
                 let groupe2 = createNode("div");
                 appendNodeClass(groupe1, groupe2, "btn-group col-1 pb-2");
 
                     let plus = createNode("div");
                     appendNodeClass(groupe2, plus, "btn btn-outline-secondary");
-                    plus.setAttribute("onClick",`add(${rang});`);
+                    plus.setAttribute("onClick","add("+rang+");");
                     plus.innerHTML = "+";
 
                     let moins = createNode("div");
                     appendNodeClass(groupe2, moins, "btn btn-outline-secondary");
-                    moins.setAttribute("onClick",`sub(${rang});`);
+                    moins.setAttribute("onClick","sub("+rang+");");
                     moins.innerHTML = "-";
 
                     let suppr = createNode("div");

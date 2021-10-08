@@ -25,8 +25,8 @@ fetch(url)
 
     let img = createNode("img");
     appendNodeClass(conteneur, img, "img");
-    img.src = data['imageUrl'];
-    img.setAttribute("alt","Photo du produit "+product+" nommé "+data['name']);
+    img.src = data.imageUrl;
+    img.setAttribute("alt","Photo du produit "+product+" nommé "+data.name);
     img.setAttribute("class", "col-md-5 d-block m-auto mt-0");
 
     let info = createNode("div");
@@ -36,9 +36,9 @@ fetch(url)
       appendNodeClass(info, contenu, "info h4 mt-3");
       contenu.innerHTML = "Informations sur le produit <br><br>";
       contenu.innerHTML += "ID : "+ _id +"<br><br>"; 
-      contenu.innerHTML += "Nom : "+ data['name'] +"<br><br>";
-      contenu.innerHTML += "Prix : "+ prixEuro(data['price']) +"<br><br>";
-      contenu.innerHTML += "Description : "+ data['description'] +"<br><br>";
+      contenu.innerHTML += "Nom : "+ data.name +"<br><br>";
+      contenu.innerHTML += "Prix : "+ prixEuro(data.price) +"<br><br>";
+      contenu.innerHTML += "Description : "+ data.description +"<br><br>";
       contenu.innerHTML += "Choix "+ choix +" :";
 
       //Creation des boutons radio pour le choix des options du produit
@@ -55,13 +55,13 @@ fetch(url)
           if (choix == "colors") {
             input.style.backgroundColor = colors(data[choix][i]);
             input.style.width = '30px';
-            }; 
+          }; 
               
           let label = createNode("label");
           appendNodeClass(form, label, "form-check-label mx-3");
           label.setAttribute("for","flexRadioDefault"+i);
           label.innerHTML = data[choix][i];
-        };
+      };
       document.getElementById("flexRadioDefault0").checked = true;
 
       //Creation du bouton "Ajouter au panier"
@@ -74,7 +74,7 @@ fetch(url)
         createModale(1);
         document.getElementById('textModal').innerHTML = "Cet article à bien été ajouter à votre panier !";
         document.getElementById('modal').showModal();
-        ajoutPanier(product, _id, data['price']);
+        ajoutPanier(product, _id, data.price);
       };
  
     })
