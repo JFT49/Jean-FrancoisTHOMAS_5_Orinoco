@@ -10,5 +10,5 @@ Vous pouvez recuperer le Backend en clonant le repository GitHub : https://githu
 Pour faire fonctinner le Backend il faut installer Node.js : https://nodejs.org/fr/   
 Une fois le Backend dezippé, executez dans le dossier du Backend avec une console une seul fois la commande:     
 npm install express ejs   
-Puis à chaque fois que vous voulez demarrer le server Backend executez dans le dossier du Backend avec une console la commande:     
-node server   
+Puis à chaque fois que vous voulez demarrer le server Backend executez dans le dossier du Backend avec une console la commande:      
+node server
